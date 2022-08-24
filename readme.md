@@ -20,3 +20,7 @@ npm i -D nodemon cross-env
  
     nodemon - restarts server after saving changes
     cross-env - want global/environment variable for node environment and its different depending on if your on windows, mac, etc. so using this to help be cross compatible
+
+-------------
+
+Current step: "Story Model"
