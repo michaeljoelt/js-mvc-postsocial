@@ -1,3 +1,31 @@
 <h1>Dashboard</h1>
 <h2>Welcome {{name}}</h2>
 <p>Here are your posts...</p>
+{{#if posts}}
+<p>You has posts!</p>
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+            <!--for edit/delete buttons-->
+        </tr>
+    </thead>
+    <tbody>
+        {{#each posts}}
+        <tr>
+            <td><a href="/posts/{{_id}}"></a>{{title}}</td>
+            <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss'}}</td>
+            <td><span class="dash-status">{{status}}</span></td>
+            <td></td>
+            <!-- edit and delete buttons; you cants have a delete get request so cant just use a link (need to use a form)-->
+        </tr>
+        {{/each}}
+
+    </tbody>
+</table>
+{{else}}
+<p>You have not created any posts.</p>
+{{/if}}

@@ -23,4 +23,9 @@ npm i -D nodemon cross-env
 
 -------------
 
-Current step: "Story Model"
+Notes:
+momentjs lets us createa handlebar helpers in helpers/hbs.js
+
+-------------
+
+Current step: "Edit Stories"

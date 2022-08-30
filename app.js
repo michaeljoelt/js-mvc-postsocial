@@ -1,6 +1,6 @@
 const path = require('path') // a core nodejs module, allows us to use path.join to handle paths
 const express = require('express') //create basic express server
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 const dotenv = require('dotenv') //for our config variables
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
@@ -24,13 +24,33 @@ connectDB()
 
 const app = express()
 
+// Body parser
+app.use(express.urlencoded({
+    extended: false
+}))
+app.use(express.json())
+
 // Logging (Morgan)
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev')) //shows requests/responses in console in dev mode
 }
 
+//Handlebars Helpers
+const {
+    formatDate,
+    stripTags,
+    truncate,
+    editIcon
+} = require('./helpers/hbs') //using "destructuring" since we're oging to have a bunch of them
+
 // Handlebars
 app.engine('.hbs', exphbs.engine({
+    helpers: {
+        formatDate,
+        stripTags,
+        truncate,
+        editIcon
+    },
     defaultLayout: 'main',
     extname: '.hbs'
 }))
@@ -51,12 +71,20 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+// Set global var
+app.use(function (req, res, next) {
+    res.locals.user = req.user || null
+    next()
+})
+
 // Static folder
 app.use(express.static(path.join(__dirname, 'public'))) //for static, public assets
 
 // Routes
 app.use('/', require('./routes/index'))
 app.use('/auth', require('./routes/auth'))
+app.use('/posts', require('./routes/posts'))
+
 
 const PORT = process.env.PORT || 5000
 

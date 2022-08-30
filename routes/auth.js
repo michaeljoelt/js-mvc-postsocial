@@ -30,5 +30,20 @@ router.get('/logout', (req, res) => {
         res.redirect('/');
     });
 })
+// router.post('/logout', (req, res) => {
+//     req.logout((err) => {
+//         if (err) {
+//             return next(err);
+//         }
+//         // res.redirect('/');
+//         req.session.destroy((err) => {
+//             res.clearCookie('connect.sid');
+//             // Don't redirect, just print text    res.send('Logged out');
+//             res.redirect('/');
+//         });
+//     });
+
+// });
+
 
 module.exports = router //so we can use this code in other files...

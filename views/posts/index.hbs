@@ -1,0 +1,29 @@
+<h1>Posts</h1>
+<div class="row">
+    {{#each posts}}
+    <p>
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-image">
+                {{{editIcon user ../user _id}}}
+                <!--while in loop, user = the poster; to get the logged in user, we can get out of this loop to access the global value by doing ../user. this is allowed via app.js "Set global var" section; and need to use triple curly brace to parse html-->
+            </div>
+            <div class="card-content center-align">
+                <h5>{{title}}</h5>
+                <p>{{stripTags (truncate body 150)}}</p>
+                <br>
+                <div class="chip">
+                    <img src="{{user.image}}" alt="{{user.displayName}} Google profile picture">
+                    <a href="/posts/user/{{user._id}}">{{user.displayName}}</a>
+                </div>
+            </div>
+            <div class="card-action center-align">
+                <a href="/posts/{{_id}}" class="btn grey">Read More</a>
+            </div>
+        </div>
+    </div>
+    </p>
+    {{else}}
+    <p>No Posts to Display</p>
+    {{/each}}
+</div>
